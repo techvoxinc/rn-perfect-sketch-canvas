@@ -74,10 +74,7 @@ export const SketchCanvas = forwardRef<SketchCanvasRef, SketchCanvasProps>(
       toBase64: (format, quality) => {
         const image = canvasRef.current?.makeImageSnapshot();
         if (image) {
-          return image.encodeToBase64(
-            format,
-            quality,
-          );
+          return image.encodeToBase64(format, quality);
         }
         return undefined;
       },
@@ -98,7 +95,10 @@ export const SketchCanvas = forwardRef<SketchCanvasRef, SketchCanvasProps>(
         drawingState.completedPoints = path;
       },
       withdraw: () => {
-        drawingState.completedPoints = drawingState.completedPoints.slice(0, -1);
+        drawingState.completedPoints = drawingState.completedPoints.slice(
+          0,
+          -1
+        );
       },
       toPoints: () => {
         return drawingState.completedPoints.map((p) => p.points);
@@ -170,6 +170,7 @@ export const SketchCanvas = forwardRef<SketchCanvasRef, SketchCanvasProps>(
             path={path.path}
             key={path.id}
             style={path.style}
+            // @ts-ignore
             color={path.color}
           />
         ))}
